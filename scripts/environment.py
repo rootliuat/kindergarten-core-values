@@ -1,4 +1,9 @@
-"""Portable discovery; no dependency on the author's home or workspace."""
+"""
+[INPUT]: 当前机器运行时、字体目录与本包 .runtime 配置。
+[OUTPUT]: 环境发现、字体信息和子进程调用能力。
+[POS]: scripts 的环境基础模块，不依赖原作者机器路径。
+[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
+"""
 from pathlib import Path
 import json, os, shutil, struct, subprocess, sys
 

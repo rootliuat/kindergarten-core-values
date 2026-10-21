@@ -1,4 +1,9 @@
-"""Check only by default; --install installs package-local dependencies."""
+"""
+[INPUT]: environment 提供的探测能力、package-lock.json 和 requirements.txt。
+[OUTPUT]: 环境报告；显式 --install 时补齐技能目录内的依赖。
+[POS]: scripts 的安装入口，默认只读检查。
+[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
+"""
 import argparse, json, os, shutil, sys, venv
 from environment import ROOT, RUNTIME, VENV, PYTHON, call, report, venv_ready, find_office
 

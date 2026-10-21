@@ -1,14 +1,30 @@
-"""Verify DOCX formatting, render to a fresh PDF, and inspect text/bounds/fonts.
-The report never claims that programmatic checks replace visual review.
+"""
+[INPUT]: 生成的 DOCX、course-structure.json、environment 的字体与渲染能力。
+[OUTPUT]: 六部分结构、脉络和辅助表格式、可选 PDF 渲染检查报告。
+[POS]: scripts 的独立输出检查器，不将自动通过等同于目视或教学验收。
+[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
 """
 from pathlib import Path
 import argparse, json, re, subprocess, sys, tempfile, zipfile
 import xml.etree.ElementTree as ET
-from environment import PYTHON, VENV, FONTS, call, find_office, installed_fonts
+from environment import ROOT, PYTHON, VENV, FONTS, call, find_office, installed_fonts
 
 NS={'w':'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}
 W='{'+NS['w']+'}'
 FACE={'title':'方正小标宋简体','h1':'黑体','h2':'楷体_GB2312','h3':'仿宋_GB2312','body':'仿宋_GB2312'}
+CONTRACT=json.loads((ROOT/'references/course-structure.json').read_text(encoding='utf-8'))
+
+
+def roadmap_tables(tree):
+    section=''; tables=[]
+    for node in tree.find('w:body',NS):
+        if node.tag==W+'p':
+            style=node.find('w:pPr/w:pStyle',NS)
+            if style is not None and style.get(W+'val')=='h1':
+                section=''.join(t.text or '' for t in node.findall('.//w:t',NS))
+        elif node.tag==W+'tbl' and section==CONTRACT['sections'][2]:
+            tables.append(node)
+    return tables
 
 def xml_check(doc):
     errors=[]; warnings=[]; expected=[]; used=set()
@@ -20,6 +36,9 @@ def xml_check(doc):
     with zipfile.ZipFile(doc) as z:
         tree=ET.fromstring(z.read('word/document.xml'))
         roots=[tree]+[ET.fromstring(z.read(n)) for n in z.namelist() if re.fullmatch(r'word/(header|footer)\d+\.xml',n)]
+    maps=roadmap_tables(tree)
+    map_paragraphs={p for table in maps for p in table.findall('.//w:p',NS)}
+    check(len(maps)==1,'第三部分应有一个横向脉络表')
     titles=[]
     for root in roots:
         for p in root.findall('.//w:p',NS):
@@ -40,9 +59,10 @@ def xml_check(doc):
             if root is tree:
                 if role=='title': check(center,'标题应居中')
                 else:
-                    check(attr(props,'w:ind','firstLineChars')==('0' if center else '200'),'首行缩进：'+txt[:24])
-                    check(attr(props,'w:ind','firstLine')==('0' if center else '640'),'首行缩进磅值：'+txt[:24])
-                    check(attr(props,'w:jc','val')==('center' if center else 'both' if role=='body' else 'left'),'对齐：'+txt[:24])
+                    compact=p in map_paragraphs
+                    check(attr(props,'w:ind','firstLineChars')==('0' if center or compact else '200'),'首行缩进：'+txt[:24])
+                    check(attr(props,'w:ind','firstLine')==('0' if center or compact else '640'),'首行缩进磅值：'+txt[:24])
+                    check(attr(props,'w:jc','val')==('center' if center else 'both' if role=='body' and not compact else 'left'),'对齐：'+txt[:24])
             for run in p.findall('.//w:r',NS):
                 rp=run.find('w:rPr',NS)
                 if rp is None: errors.append('缺文字格式：'+txt[:24]);continue
@@ -51,13 +71,27 @@ def xml_check(doc):
                 b=rp.find('w:b',NS)
                 bold=b is not None and b.get(W+'val') not in ('false','0','off')
                 check(bold==(role in ('h2','h3')),'加粗：'+txt[:24])
-    check(titles==['一、课程缘起','二、课程实施','三、儿童发展','四、教师反思'],'四个一级部分与顺序')
+    check(titles==CONTRACT['sections'],'六个一级部分与顺序')
     for table in tree.findall('.//w:tbl',NS):
-        for i,row in enumerate(table.findall('w:tr',NS)):
+        rows=table.findall('w:tr',NS)
+        if table in maps:
+            check(len(rows)==1,'脉络表应为一行四格，阶段名与活动同格')
+            cells=rows[0].findall('w:tc',NS) if rows else []
+            check(len(cells)==CONTRACT['roadmap_columns'],'脉络表应为四列')
+            for cell in cells:
+                paragraphs=cell.findall('w:p',NS)
+                check(len(paragraphs)>=2,'脉络格须含阶段名称和活动')
+                check(attr(cell,'w:tcPr/w:vAlign','val')=='top','脉络格应顶端对齐')
+                if paragraphs: check(attr(paragraphs[0],'w:pPr/w:jc','val')=='center','脉络阶段名应居中')
+            if rows: check(rows[0].find('w:trPr/w:cantSplit',NS) is not None,'脉络行不应跨页拆分')
+            continue
+        columns=len(rows[0].findall('w:tc',NS)) if rows else 0
+        check(columns in (2,3),'辅助表格应为二列或三列')
+        for i,row in enumerate(rows):
             if i==0: check(row.find('w:trPr/w:tblHeader',NS) is not None,'表头应重复')
             check(row.find('w:trPr/w:cantSplit',NS) is not None,'表格短行不应跨页拆分')
             cells=row.findall('w:tc',NS)
-            check(len(cells)==2,'默认表格必须为两列')
+            check(len(cells)==columns,'辅助表格各行列数须一致')
             for j,cell in enumerate(cells):
                 if i==0 or j==0:
                     check(attr(cell,'w:tcPr/w:vAlign','val')=='center','表头、左栏应垂直居中')

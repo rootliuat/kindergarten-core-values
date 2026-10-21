@@ -1,9 +1,14 @@
-"""End-to-end rendering of a format fixture, not an evaluation of teaching."""
+"""
+[INPUT]: sample-input.json、build_word.cjs、check_word.py 与可用运行时。
+[OUTPUT]: 六部分排版样例及渲染检查结果，不验证教学效果。
+[POS]: scripts 的排版冒烟检查入口。
+[PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
+"""
 from pathlib import Path
 import argparse, shutil, subprocess, sys
 from environment import ROOT
 
-ap=argparse.ArgumentParser(description='生成四部分格式样例并进行渲染核对，不测试教学效果')
+ap=argparse.ArgumentParser(description='生成六部分格式样例并进行渲染核对，不测试教学效果')
 ap.add_argument('--out',required=True,type=Path)
 ap.add_argument('--soffice')
 args=ap.parse_args()
