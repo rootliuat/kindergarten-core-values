@@ -1,0 +1,4 @@
+interface:
+  display_name: "幼儿园社会主义核心价值观课程"
+  short_description: "结合教师案例与调研素材，设计中大班核心价值观课程并输出规范 Word"
+  default_prompt: "请使用 $kindergarten-core-values，结合本班已有经验和案例资料，按四部分框架设计社会主义核心价值观主题课程并生成可编辑 Word。"

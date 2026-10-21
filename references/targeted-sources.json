@@ -1,0 +1,150 @@
+{
+  "date": "2026-10-20",
+  "scope": "专题补查之后的定向追查",
+  "framework": [
+    "课程缘起",
+    "课程实施",
+    "儿童发展",
+    "教师反思"
+  ],
+  "stats": {
+    "xiaohongshu_search_attempts": 9,
+    "xiaohongshu_successful_searches": 8,
+    "xiaohongshu_timeouts": 1,
+    "xiaohongshu_detail_reads": 4,
+    "downloaded_images": 23
+  },
+  "records": [
+    {
+      "id": "D01",
+      "theme": "富强",
+      "title": "忆苦思甜美餐会",
+      "source_title": "你的生日 我的行动",
+      "url": "https://xzx.shnu.edu.cn/c6/6e/c18436a706158/page.htm",
+      "author": "白莹",
+      "institution": "西南交通大学幼儿园",
+      "age": "大班",
+      "published": "2019-10-01（转载页）",
+      "read_scope": "公开全文中该课程故事",
+      "evidence_level": "园本课程内的阶段活动实录，有生活调查及预设调整",
+      "duration": "未公布完整周期",
+      "source_theme": "交大娃娃爱祖国",
+      "theme_mapping": "富强的关联经验，非原文明确命名富强主题",
+      "usable_for": [
+        "发展与生活变化的联系",
+        "家庭调查与多元表征",
+        "根据调查调整预设"
+      ],
+      "missing": [
+        "整个主题的实施起止",
+        "后续生活迁移",
+        "对富强理解的持续观察"
+      ],
+      "local_text": "原始资料/大班_忆苦思甜美餐会.txt"
+    },
+    {
+      "id": "D02",
+      "theme": "和谐",
+      "title": "嗷呜～大恐龙",
+      "url": "https://www.ccc.org.cn/art/2023/5/17/art_47_47923.html",
+      "author": "谷娜（报道中的分享教师）",
+      "institution": "中国儿童中心实验幼儿园",
+      "age": "中班",
+      "published": "2023-05-17",
+      "read_scope": "公开报道中该例摘要",
+      "evidence_level": "连续课程的分享摘要",
+      "duration": "未明确",
+      "theme_mapping": "游戏需要与生态需要协调的关联经验",
+      "usable_for": [
+        "不把游戏与自然保护简单对立",
+        "引入专业人员意见",
+        "经历尝试与调整"
+      ],
+      "missing": [
+        "调整方案详细记录",
+        "课程起止",
+        "连续观察原件"
+      ],
+      "local_text": "原始资料/中大班_儿童中心自然课程.txt"
+    },
+    {
+      "id": "D03",
+      "theme": "和谐",
+      "title": "你好，我的家乡",
+      "url": "https://web.suruixiaoyuan.com/c/GSpu250322170121775",
+      "author": "葛菲（图文编辑）",
+      "institution": "萧山区亚运村幼儿园中一班",
+      "age": "中班",
+      "published": "2025-03-22",
+      "read_scope": "公开正文，图片未逐张读取",
+      "evidence_level": "多阶段园所课程叙述",
+      "theme_mapping": "社区生活与公共环境的关联经验",
+      "missing": [
+        "完整起止",
+        "长期回访",
+        "和谐主题的明确价值目标与变化证据"
+      ],
+      "local_text": "原始资料/中班_你好我的家乡.txt"
+    },
+    {
+      "id": "D04",
+      "theme": "法治",
+      "title": "小小法庭体验记",
+      "url": "https://www.qikan.com.cn/magdetails/EA64B552-9334-4949-B76A-192A206421BE/2025/6.html",
+      "article_url": "https://www.qikan.com.cn/article/yjjk20250614.html",
+      "read_scope": "2025年第6期目录与导读开头；文章页打开超时",
+      "evidence_level": "上一轮B01的刊期交叉核验",
+      "new_case": false,
+      "verified_update": "目录有该标题，导读开头与已读图片一致；刊期不再仅依赖转载说明",
+      "missing": [
+        "原例年龄",
+        "整个周期",
+        "长期观察"
+      ]
+    },
+    {
+      "id": "D05",
+      "theme": "富强",
+      "title": "上城探索在幼儿园弘扬红色文化",
+      "url": "https://www.hangzhou.gov.cn/art/2024/12/11/art_812264_59106412.html",
+      "age": "报道未明确",
+      "published": "2024-12-11",
+      "read_scope": "公开全文，正常网页请求保存",
+      "evidence_level": "一次教学展示报道",
+      "theme_mapping": "正文直接谈及富强，非持续实施实录",
+      "local_text": "原始资料/富强_上城公开课.txt"
+    },
+    {
+      "id": "D06",
+      "themes": [
+        "富强",
+        "和谐",
+        "法治"
+      ],
+      "title": "幼儿价值观培养绘本",
+      "url": "https://www.haiyan.com/article-433-1.html",
+      "publisher": "海燕出版社",
+      "age": "小中大班分级，上下学期",
+      "author": "朱家雄主编；阎莉整体设计及故事创编",
+      "read_scope": "出版社产品介绍页",
+      "evidence_level": "课程资源介绍，未读教材及实施案例",
+      "local_text": "原始资料/海燕_幼儿价值观培养绘本.txt"
+    },
+    {
+      "id": "D07",
+      "themes": [
+        "富强",
+        "和谐",
+        "法治"
+      ],
+      "title": "学前儿童社会教育特色活动设计与指导",
+      "url": "https://www.tup.tsinghua.edu.cn/upload/books/yz/091177-01.pdf",
+      "publisher": "清华大学出版社",
+      "year": "2023",
+      "isbn": "9787302632689",
+      "read_scope": "公开样章18页的封面、版权、前言、目录及检索返回文字；未读全书",
+      "evidence_level": "方法资源，未读到三主题完整实录"
+    }
+  ],
+  "conclusion": "新增生活比较与中班协调问题素材，未补齐三主题完整持续实录；法治刊期交叉核验完成"
+}

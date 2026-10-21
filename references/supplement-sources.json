@@ -1,0 +1,101 @@
+{
+  "date": "2026-10-20",
+  "scope": "第一轮之后的三主题专题补查",
+  "stats": {
+    "xiaohongshu_search_attempts": 8,
+    "successful_searches": 7,
+    "timeouts": 1,
+    "details_read": 4,
+    "images_downloaded": 37,
+    "images_overviewed": 37,
+    "images_individually_enlarged": 11
+  },
+  "accepted_cards": [
+    {
+      "id": "B01",
+      "theme": "法治",
+      "title": "小小法庭体验记",
+      "url": "https://www.xiaohongshu.com/explore/6955f2a4000000001e028695",
+      "author_from_image": [
+        "张小琴",
+        "崔依幸"
+      ],
+      "institution_from_image": "江苏省如东县栟茶镇靖海幼儿园",
+      "publication": "今日教育（幼教金刊）",
+      "issue": "2025年第6期；定向追查D04已用电子期刊目录及开头交叉核验",
+      "pages": "44—47",
+      "age": "未明确",
+      "course_duration": "未明确",
+      "read_scope": "4张正文均放大阅读",
+      "classification": "较完整的法治启蒙多阶段实录；有问题标记",
+      "evidence": [
+        "44页：缘起和实地参观",
+        "45—46页：模拟与记录表1.0、2.0、3.0",
+        "46—47页：生活纠纷讨论",
+        "47页：总结反思"
+      ],
+      "limitations": [
+        "没有明确课程起止日期和长期追踪",
+        "取消一周选区资格不纳入推荐做法",
+        "儿童游戏中的调解与国家司法、法律须区分"
+      ],
+      "local_image_folder": "图片阅读/6955f2a4000000001e028695"
+    },
+    {
+      "id": "B02",
+      "theme": "富强",
+      "title": "家乡高铁引发的游戏",
+      "url": "https://www.xiaohongshu.com/explore/63f3813f0000000013000c14",
+      "author": "李洪英（期刊网页署名）",
+      "publication": "幼儿教育",
+      "issue": "图上2022年1、2月合刊；网页标2022年第2期",
+      "pages": "61—63",
+      "age": "未明确",
+      "course_duration": "未明确",
+      "read_scope": "3页原刊均放大阅读",
+      "classification": "持续实施的关联实践，非已核实的完整富强主题课程",
+      "evidence": [
+        "61页：家乡开通高铁与材料问题",
+        "62页：轨道搭建与修改",
+        "63页：售票设施三次尝试及教师支持"
+      ],
+      "limitations": [
+        "国家发展与生活改善的价值连接未完整呈现",
+        "幼儿理解富强的变化未见证据"
+      ],
+      "local_image_folder": "图片阅读/63f3813f0000000013000c14"
+    },
+    {
+      "id": "B03",
+      "theme": "和谐",
+      "title": "亲亲小羊",
+      "url": "https://www.xiaohongshu.com/explore/6abb971a000000001c00dfaf",
+      "original_author": "待核",
+      "original_institution": "待核",
+      "publication": "图片可见读天下标识，具体书目信息待核",
+      "age": "小班",
+      "course_duration": "未明确；羊龄百日不等于课程百日",
+      "read_scope": "12张概览，03、09、11、12张放大阅读",
+      "classification": "持续照料的关联材料，非中大班现成完整和谐主题范本",
+      "evidence": [
+        "03张：猜想与证据",
+        "09张：与动物相处中的问题及调整",
+        "11张：草料和假期照料",
+        "12张：总结"
+      ],
+      "limitations": [
+        "原例小班",
+        "原作者、园所、出版信息不全",
+        "不得将新增中大班改编环节记为原例事实"
+      ],
+      "local_image_folder": "图片阅读/6abb971a000000001c00dfaf"
+    }
+  ],
+  "local_correction": "本地C06中班土豆课程已有明确和谐主题持续实践，外部新增完整案例不足不等于没有本地案例",
+  "framework": [
+    "课程缘起",
+    "课程实施",
+    "儿童发展",
+    "教师反思"
+  ]
+}
