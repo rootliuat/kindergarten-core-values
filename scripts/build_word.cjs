@@ -19,7 +19,7 @@ const font = {title:'方正小标宋简体', h1:'黑体', h2:'楷体_GB2312', h3
 const face = n => ({ascii:n, hAnsi:n, eastAsia:n, cs:n});
 const spacing = {before:0, after:0, line:560, lineRule:LineRuleType.EXACT};
 function run(text, role='body', extra={}) {
-  return new TextRun({text, font:face(font[role]), size:role==='title'?44:32,
+  return new TextRun({text, font:face(font[role]), size:role==='title'?36:32,
     bold:role==='h2'||role==='h3', language:{value:'zh-CN',eastAsia:'zh-CN'}, ...extra});
 }
 function para(text, role='body', url, centered=false, pageBreakBefore=false, lines) {
@@ -64,7 +64,7 @@ const doc=new Document({
   title:data.title, creator:'幼儿园课程设计',
   styles:{default:{document:{run:{font:face(font.body),size:32,bold:false},paragraph:{spacing}}},
     paragraphStyles:Object.keys(font).map(role=>({id:role,name:role,basedOn:'Normal',
-      next:'body',run:{font:face(font[role]),size:role==='title'?44:32,bold:['h2','h3'].includes(role)},
+      next:'body',run:{font:face(font[role]),size:role==='title'?36:32,bold:['h2','h3'].includes(role)},
       paragraph:{spacing,...((role==='body'||role.startsWith('h'))?{indent:{firstLine:640,firstLineChars:200}}:{}),...(role.startsWith('h')?{outlineLevel:Number(role[1])-1}:{})}}))},
   sections:[{properties:{page:{size:{width:11906,height:16838},
     margin:{top:1134,bottom:1134,left:1134,right:1134,footer:567}}},

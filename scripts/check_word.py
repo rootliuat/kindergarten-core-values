@@ -47,7 +47,7 @@ def xml_check(doc):
                 rp=run.find('w:rPr',NS)
                 if rp is None: errors.append('缺文字格式：'+txt[:24]);continue
                 check(all(attr(rp,'w:rFonts',k)==FACE[role] for k in ('ascii','hAnsi','eastAsia','cs')),'字体：'+txt[:24])
-                check(attr(rp,'w:sz','val')==('44' if role=='title' else '32'),'字号：'+txt[:24])
+                check(attr(rp,'w:sz','val')==('36' if role=='title' else '32'),'字号：'+txt[:24])
                 b=rp.find('w:b',NS)
                 bold=b is not None and b.get(W+'val') not in ('false','0','off')
                 check(bold==(role in ('h2','h3')),'加粗：'+txt[:24])
