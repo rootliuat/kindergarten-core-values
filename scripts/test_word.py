@@ -1,6 +1,6 @@
 """
 [INPUT]: 排版样例、build_word.cjs、check_word.xml_check 与可用 Node.js。
-[OUTPUT]: 有效生成、错误输入拒绝、损坏文档识别的回归结果。
+[OUTPUT]: 有效生成、标题空白定向规范、错误输入拒绝、损坏文档识别的回归结果。
 [POS]: scripts 的结构与排版接口测试，不测试教学效果。
 [PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
 """
@@ -68,6 +68,25 @@ class WordContractTest(unittest.TestCase):
                 self.assertNotEqual(result.returncode, 0)
                 self.assertFalse(output.exists())
 
+    def test_heading_spacing_only(self):
+        data = copy.deepcopy(self.data)
+        headings = ['1.  整理 想法', '2.\t试一试', '3.\u3000再看看', '4.\u00a0回看', '5.已规范']
+        blocks = [{'level': 3, 'text': text} for text in headings]
+        blocks += [{'text': '1. 正文空格 保留'}, {'level': 2, 'text': '（一） 阶段空格保留'},
+                   {'text': '网址说明', 'url': 'https://example.com/a.b'}]
+        data['sections'][3]['blocks'].extend(blocks)
+        result, doc = self.build(data, 'heading-spacing')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        errors, _, text, _ = xml_check(doc)
+        self.assertEqual(errors, [])
+        for expected in ['1.整理 想法', '2.试一试', '3.再看看', '4.回看', '5.已规范',
+                         '1. 正文空格 保留', '（一） 阶段空格保留']:
+            self.assertIn(expected, text)
+        saved = json.loads((self.folder/'heading-spacing.json').read_text('utf-8'))
+        self.assertEqual(saved, data)
+        with ZipFile(doc) as archive:
+            self.assertIn('https://example.com/a.b', archive.read('word/_rels/document.xml.rels').decode())
+
     def corrupt(self, name, change):
         target = self.folder/(name+'.docx')
         with ZipFile(self.doc) as source, ZipFile(target, 'w') as output:
@@ -90,6 +109,24 @@ class WordContractTest(unittest.TestCase):
         def change_font(tree):
             tree.find('.//w:rFonts', NS).set(W+'eastAsia', 'Arial')
         self.assertTrue(any(e.startswith('字体：') for e in self.corrupt('font', change_font)))
+
+    def test_checker_detects_heading_gap(self):
+        for gap in (' ', '\u3000', '\t'):
+            with self.subTest(gap=repr(gap)):
+                def add_gap(tree):
+                    for p in tree.findall('.//w:body/w:p', NS):
+                        style = p.find('w:pPr/w:pStyle', NS)
+                        if style is not None and style.get(W+'val') == 'h3':
+                            run = p.find('w:r', NS)
+                            text = run.find('w:t', NS)
+                            text.text = '1.' + (gap + '活动' if gap != '\t' else '')
+                            if gap == '\t':
+                                ET.SubElement(run, W+'tab')
+                                ET.SubElement(run, W+'t').text = '活动'
+                            return
+                    self.fail('样例缺少三级标题')
+                errors = self.corrupt('heading-gap', add_gap)
+                self.assertTrue(any(e.startswith('三级标题编号后不应留空白') for e in errors))
 
 
 if __name__ == '__main__':

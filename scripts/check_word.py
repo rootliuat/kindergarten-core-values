@@ -1,6 +1,6 @@
 """
 [INPUT]: 生成的 DOCX、course-structure.json、environment 的字体与渲染能力。
-[OUTPUT]: 六部分结构、脉络和辅助表格式、可选 PDF 渲染检查报告。
+[OUTPUT]: 六部分结构、标题编号空白、脉络和辅助表格式、可选 PDF 渲染检查报告。
 [POS]: scripts 的独立输出检查器，不将自动通过等同于目视或教学验收。
 [PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
 """
@@ -53,6 +53,10 @@ def xml_check(doc):
             if role not in FACE: errors.append('未识别的段落样式：'+str(role));continue
             used.add(FACE[role])
             if role=='h1': titles.append(txt)
+            if role=='h3':
+                visible=''.join('\t' if e.tag==W+'tab' else e.text or ''
+                                for e in p.iter() if e.tag in (W+'t',W+'tab'))
+                check(not re.match(r'^\d+\.\s',visible),'三级标题编号后不应留空白：'+txt[:24])
             center=attr(props,'w:jc','val')=='center'
             check(attr(props,'w:spacing','line')=='560' and attr(props,'w:spacing','lineRule')=='exact','固定行距应为２８磅：'+txt[:24])
             check(attr(props,'w:spacing','before')=='0' and attr(props,'w:spacing','after')=='0','段前后应为０：'+txt[:24])

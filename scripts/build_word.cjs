@@ -1,6 +1,6 @@
 /**
  * [INPUT]: 六部分课程 JSON、course-structure.json 与本包固定版本 docx。
- * [OUTPUT]: 可编辑 Word，含横向四格脉络、叙述正文及可选二列或三列表。
+ * [OUTPUT]: 可编辑 Word，含横向四格脉络、叙述正文及辅助表；三级标题编号后无空白。
  * [POS]: scripts 的文档生成入口；check_word.py 独立检查输出格式。
  * [PROTOCOL]: 变更时更新此头部，然后检查 AGENTS.md
  */
@@ -46,6 +46,7 @@ function run(text, role='body', extra={}) {
 }
 function para(text, role='body', url, centered=false, pageBreakBefore=false, lines, compact=false, keepNext=false) {
   if (typeof text !== 'string' || /[\r\n]/.test(text)) throw Error('段落必须是无换行的字符串；多段落请用多个 blocks 或单元格数组');
+  if (role==='h3') text=text.replace(/^(\d+\.)\s+/u, '$1');
   let parts=[run(text,role)];
   if (lines) {
     if (!Array.isArray(lines) || lines.length<1 || lines.some(t=>typeof t!=='string'||/[\r\n]/.test(t)) || lines.join('')!==text)
